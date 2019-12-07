@@ -1,0 +1,405 @@
+@import 'variables';
+@import '~sweetalert2/src/sweetalert2';
+@import url(https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i);
+@import 'variables';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: $raleway;
+  @apply h-screen;
+}
+
+.color-primary {
+  color: $primary-color
+}
+
+.color-secondary {
+  color: $secondary-color
+}
+
+.bg-primary {
+  background: $primary-color
+}
+
+.bg-secondary {
+  background: $secondary-color
+}
+
+h1 {
+  @apply font-normal leading-none;
+
+  span {
+    @apply font-semibold;
+  }
+}
+
+h2 {
+  @apply font-medium leading-none text-2xl;
+}
+
+h3 {
+  @apply font-medium leading-none text-xl;
+}
+
+p {
+  @apply font-normal leading-relaxed text-justify;
+}
+
+.gradient {
+  background: linear-gradient(240.64deg, rgba($primary-color, .8) 0%, rgba($secondary-color, .8) 100%);
+}
+
+.invalid-feedback {
+  @apply text-red-500 text-xs italic;
+}
+
+nav {
+  background: $primary-color;
+
+  img.logo {
+    max-height: 3rem;
+    height: 100%;
+  }
+}
+
+label.label-main {
+  @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2;
+}
+
+input.input-main {
+  @apply appearance-none border block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight mb-3;
+}
+
+select.select-main {
+  @apply block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight;
+}
+
+.alert {
+  @apply px-4 py-3 rounded relative mb-4;
+
+  &div {
+    @apply block;
+  }
+}
+
+.alert-danger {
+  @apply bg-red-100 border border-red-400 text-red-700;
+}
+
+.alert-success {
+  @apply bg-green-100 border border-green-400 text-green-700;
+}
+
+button {
+  &%btn {
+    @apply rounded-full border-solid border-4 border-transparent uppercase tracking-widest block;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(101deg, $primary-color, $secondary-color);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+  }
+
+  &.btn-primary {
+    box-shadow: 2px 1000px 1px #fff inset;
+    @extend %btn;
+    @apply text-black;
+
+    &:hover {
+      box-shadow: none;
+      box-shadow: 0px 15px 20px rgba($primary-color, 0.4);
+      transform: translateY(-8px);
+      @apply text-white;
+    }
+  }
+
+  &.btn-secondary {
+    @extend %btn;
+    @apply text-white;
+
+    &:hover {
+      box-shadow: 0px 15px 20px rgba($primary-color, 0.4);
+      transform: translateY(-8px);
+      @apply text-white;
+    }
+  }
+
+  &.large {
+    max-width: 20rem;
+    width: 100%;
+    @apply my-2 py-2 px-10 text-lg font-semibold;
+  }
+
+  &.small {
+    @apply my-2 py-2 px-6 text-base font-medium;
+  }
+
+  &.btn-disabled {
+    @apply rounded-full border-solid border-4 border-transparent uppercase tracking-widest block bg-gray-300 text-gray-500;
+  }
+
+  &.close {
+    @apply absolute top-0 bottom-0 right-0 px-4 py-3;
+  }
+}
+
+#homepage {
+  background: url(/images/back_home.png);
+  @apply h-screen bg-cover;
+
+  .wrapper {
+    @extend .gradient;
+    @apply h-screen;
+
+    .left-side {
+      @apply h-screen bg-white p-8;
+
+      .logo {
+        img {
+          width: 100%;
+          max-width: 24rem;
+          height: auto;
+        }
+      }
+    }
+
+    .right-side {
+      @apply h-screen;
+
+      &:before {
+        content: "";
+        background: url(/images/left_side.svg);
+        @apply bg-cover h-screen absolute bg-no-repeat;
+
+        @screen md {
+          width: 18rem;
+        }
+      }
+    }
+  }
+}
+
+#page {
+  background: url(/images/back_home.png);
+  @apply h-screen bg-cover;
+
+  .wrapper {
+    @extend .gradient;
+    @apply h-screen;
+
+    .logo {
+
+      img {
+        width: 100%;
+        max-height: 10rem;
+      }
+    }
+  }
+}
+
+.overlay {
+  @apply fixed right-0 bg-white shadow-2xl;
+  width: 25rem;
+  z-index: 1;
+  top: 4rem;
+  height: calc(100vh - 4rem);
+
+  @media (max-width: 575.98px) {
+    @apply w-full;
+  }
+
+  .overlay-top {
+    height: 18rem;
+    @apply relative w-full bg-gray-400;
+  }
+
+  .overlay-content {
+    @apply h-full w-full p-4;
+
+    .overlay-text {
+      background: rgba($secondary-color, 10%);
+      @apply my-4 rounded p-4 text-sm text-justify;
+    }
+  }
+
+  .upload-photo {
+    color: $primary-color;
+    @apply rounded-full p-2 bg-white text-2xl h-12 w-12 flex justify-center items-center shadow-xl;
+  }
+
+  .submit-photo {
+    @apply rounded-full p-2 bg-green-500 text-white text-2xl h-12 w-12 flex justify-center items-center shadow-xl;
+
+    &:disabled {
+      @apply bg-gray-800 text-gray-300;
+    }
+  }
+
+  .delete-photo {
+    @apply rounded-full p-2 bg-red-500 text-2xl text-white h-12 w-12 mx-2 flex justify-center items-center shadow-xl;
+  }
+
+  .progress {
+    @apply absolute bottom-0 left-0 h-2 w-full bg-white;
+
+    span {
+      @apply block h-full;
+    }
+  }
+
+  .cover-loading {
+    @apply flex justify-center items-center h-full w-full;
+  }
+
+  .slide {
+    height: 18rem;
+    @apply block w-full;
+
+    img {
+      object-fit: cover;
+      @apply h-full w-full;
+    }
+
+  }
+
+  .agile__nav-button {
+    top: 50%;
+    transform: translateY(-50%);
+    @apply absolute text-2xl text-white;
+  }
+
+  .agile__nav-button--prev {
+    left: 0.3em;
+  }
+
+  .agile__nav-button--next {
+    right: 0.3em;
+  }
+}
+
+#settings {
+  background: url(/images/back_home.png);
+  @apply h-screen bg-cover;
+
+  .wrapper {
+    background: rgba(white, 0.4)
+  }
+
+  .active-class {
+    background: white !important;
+  }
+}
+
+/* TEXT SHADOW */
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);
+}
+
+.text-shadow-md {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 15px 30px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.text-shadow-none {
+  text-shadow: none;
+}
+
+/* SPINNER */
+
+.spinner {
+  width: 70px;
+  text-align: center;
+}
+
+.spinner>div {
+  width: 18px;
+  height: 18px;
+  background-color: $primary-color;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+
+/* ANIMATION */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active below version 2.1.8 */
+
+  {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all .4s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */
+
+  {
+  transform: translateX(25rem);
+  opacity: 0;
+}
+
+.infinite-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0)
+  }
+
+  40% {
+    -webkit-transform: scale(1.0)
+  }
+}
+
+@keyframes sk-bouncedelay {
+
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+  40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
