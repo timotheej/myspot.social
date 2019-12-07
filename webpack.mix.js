@@ -14,7 +14,6 @@ mix
   })
 
   .disableNotifications()
-  .setPublicPath('/')
 
 if (mix.inProduction()) {
   mix
