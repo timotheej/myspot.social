@@ -8,10 +8,10 @@
     v-if="imageLoading"
   >
     <div v-for="image in images" :key="image.id" class="slide">
-      <img :src="'storage/' + image.file_name" />
+      <img :src="image.file_name" />
     </div>
     <div v-if="!images.length > 0" class="slide">
-      <img src="storage/upload/default.jpg" alt />
+      <img src="images/default.jpg" alt />
     </div>
     <template slot="prevButton">
       <fa icon="chevron-left"></fa>

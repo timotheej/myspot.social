@@ -6,9 +6,11 @@ use App\ImageSpot;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ImageSpotController extends Controller
 {
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -17,13 +19,14 @@ class ImageSpotController extends Controller
         ]);
 
         $images = $this->uploadFiles($request);
+        $url = 'https://' . env('AWS_BUCKET') . '.s3.' . env('AWS_DEFAULT_REGION') . 'amazonaws.com/';
 
         foreach ($images as $imageFile) {
             list($fileName) = $imageFile;
 
             $spotImage = new ImageSpot;
 
-            $spotImage->file_name = $fileName;
+            $spotImage->file_name = Storage::disk('s3')->url($fileName);
             $spotImage->user_id = $request->user_id;
             $spotImage->spot_id = $request->spot_id;
 
@@ -56,7 +59,9 @@ class ImageSpotController extends Controller
         $fileNameOnly = pathinfo($originalFileName, PATHINFO_FILENAME);
         $fileName = Str::slug($fileNameOnly) . "-" . time() . "." . $extension;
 
-        $uploadFileName =  $image->storeAs('upload', $fileName);
+        Storage::disk('s3')->put($fileName, file_get_contents($image), 'public');
+
+        $uploadFileName = $fileName;
 
         return [$uploadFileName];
     }
